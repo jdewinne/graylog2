@@ -1,0 +1,8 @@
+#!/bin/bash
+numproc=`ps -fU <%= @owner %> | grep 'elastic' | grep -v grep | wc -l`
+
+if [ $numproc -gt 0 ]; then
+  echo "Elasticsearch is running..."
+else
+  echo "Elasticsearch is stopped..."
+fi

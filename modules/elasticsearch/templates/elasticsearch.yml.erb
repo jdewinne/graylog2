@@ -1,0 +1,91 @@
+################################### Cluster ###################################
+cluster.name: <%= @cluster %>
+
+#################################### Node #####################################
+node.master: <%= @master %>
+node.data: <%= @data %>
+node.name: <%= @hostname %>
+
+#################################### Index ####################################
+index.number_of_shards: <%= @shards %>
+index.number_of_replicas: <%= @replicas %>
+
+#################################### Paths ####################################
+<% if @datadir -%>
+path.data: <%= @datadir %>
+<% end -%>
+<% if @workdir -%>
+path.work: <%= @workdir %>
+<% end -%>
+
+################################### Memory ####################################
+#bootstrap.mlockall: true
+
+############################## Network And HTTP ###############################
+network.host: <%= @ipaddress %>
+transport.tcp.port: 9300
+http.port: 9200
+http.max_content_length: 100mb
+
+################################### Gateway ###################################
+#gateway.type: local
+#gateway.recover_after_nodes: 1
+#gateway.recover_after_time: 10m
+#gateway.expected_nodes: 2
+
+############################# Recovery Throttling #############################
+# These settings allow to control the process of shards allocation between
+# nodes during initial recovery, replica allocation, rebalancing,
+# or when adding and removing nodes.
+
+# Set the number of concurrent recoveries happening on a node:
+#
+# 1. During the initial recovery
+#
+# cluster.routing.allocation.node_initial_primaries_recoveries: 4
+#
+# 2. During adding/removing nodes, rebalancing, etc
+#
+# cluster.routing.allocation.node_concurrent_recoveries: 2
+
+# Set to throttle throughput when recovering (eg. 100mb, by default unlimited):
+#
+# indices.recovery.max_size_per_sec: 0
+
+# Set to limit the number of open concurrent streams when
+# recovering a shard from a peer:
+#
+# indices.recovery.concurrent_streams: 5
+
+################################## Discovery ##################################
+discovery.zen.minimum_master_nodes: 1
+discovery.zen.ping.timeout: 5s
+discovery.zen.ping.multicast.group: 224.0.0.123
+discovery.zen.ping.multicast.port: 54328
+
+################################## Slow Log ##################################
+# Shard level query and fetch threshold logging.
+
+#index.search.slowlog.threshold.query.warn: 10s
+#index.search.slowlog.threshold.query.info: 5s
+#index.search.slowlog.threshold.query.debug: 2s
+#index.search.slowlog.threshold.query.trace: 500ms
+
+#index.search.slowlog.threshold.fetch.warn: 1s
+#index.search.slowlog.threshold.fetch.info: 800ms
+#index.search.slowlog.threshold.fetch.debug: 500ms
+#index.search.slowlog.threshold.fetch.trace: 200ms
+
+#index.indexing.slowlog.threshold.index.warn: 10s
+#index.indexing.slowlog.threshold.index.info: 5s
+#index.indexing.slowlog.threshold.index.debug: 2s
+#index.indexing.slowlog.threshold.index.trace: 500ms
+
+################################## GC Logging ################################
+#monitor.jvm.gc.ParNew.warn: 1000ms
+#monitor.jvm.gc.ParNew.info: 700ms
+#monitor.jvm.gc.ParNew.debug: 400ms
+
+#monitor.jvm.gc.ConcurrentMarkSweep.warn: 10s
+#monitor.jvm.gc.ConcurrentMarkSweep.info: 5s
+#monitor.jvm.gc.ConcurrentMarkSweep.debug: 2s
