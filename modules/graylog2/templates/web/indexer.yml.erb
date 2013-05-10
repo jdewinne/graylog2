@@ -1,6 +1,6 @@
 # Settings for the elasticsearch indexer.
 production:
-  url: http://<%= @ipaddress %>:9200/
+  url: http://<%= scope.lookupvar('graylog2::web::elasticsearch_host') %>:9200/
   index_prefix: graylog2
 
   # Be careful with the index_prefix if you want to use several Graylog2 instances in the same

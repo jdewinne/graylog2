@@ -118,9 +118,11 @@ class elasticsearch (
 
   case $ensure {
     'present', 'stopped', 'running' : {
-      class { 'elasticsearch::install': } ->
-      class { 'elasticsearch::config': } ->
-      class { 'elasticsearch::service': }
+      anchor { 'elasticsearch::begin': }
+      class  { 'elasticsearch::install': } ->
+      class  { 'elasticsearch::config': } ->
+      class  { 'elasticsearch::service': }
+      anchor { 'elasticsearch::end': }
     }
     default : {
       fail('Invalid value for ensure. Only present, stopped or running is allowed.')
