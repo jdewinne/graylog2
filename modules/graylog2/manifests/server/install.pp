@@ -1,4 +1,4 @@
-class graylog2::install {
+class graylog2::server::install {
 
   group { 'graylog2':
     ensure => present,

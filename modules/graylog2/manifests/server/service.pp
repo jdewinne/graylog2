@@ -1,4 +1,4 @@
-class graylog2::service {
+class graylog2::server::service {
 
   service { 'graylog2':
     ensure  => running,
