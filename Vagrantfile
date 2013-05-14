@@ -37,8 +37,19 @@ Vagrant.configure("2") do |config|
       v.gui  = false
       v.customize ["modifyvm", :id, "--memory", 1024]
     end
+  end
 
-    config.vm.network :forwarded_port, guest: 3000, host: 3000
+  config.vm.define :client do |client|
+    client.vm.box      = "centos-64"
+    client.vm.box_url  = "http://developer.nrel.gov/downloads/vagrant-boxes/CentOS-6.4-x86_64-v20130309.box"
+    client.vm.hostname = "client"
+    client.vm.network :private_network, ip: "10.11.12.23"
+
+    client.vm.provider "virtualbox" do |v|
+      v.name = "client"
+      v.gui  = false
+      v.customize ["modifyvm", :id, "--memory", 512]
+    end
   end
 
   config.vm.provision :puppet do |puppet|
