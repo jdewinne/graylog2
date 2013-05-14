@@ -6,6 +6,9 @@ node default {
 }
 
 node elasticsearch inherits default {
+  package { 'java-1.7.0-openjdk':
+    ensure => present
+  } ->
   class { 'elasticsearch': cluster => 'graylog2' }
 }
 
@@ -14,7 +17,7 @@ node mongodb inherits default {
 }
 
 node graylog2 inherits default {
-  anchor { 'node_graylog2::begin': }
+  anchor { 'node_graylog2::begin': } ->
   package { 'java-1.7.0-openjdk':
     ensure => present
   } ->
@@ -29,7 +32,19 @@ node graylog2 inherits default {
     ruby_version       => '1.9.3',
     elasticsearch_host => '10.11.12.20',
     mongodb_host       => '10.11.12.21',
-  }
+  } ->
   anchor { 'node_graylog2::end': }
 }
 
+node client inherits default {
+  package { 'httpd':
+    ensure => present,
+  } ->
+  service { 'httpd':
+    ensure => running,
+  }
+
+  package { 'java-1.7.0-openjdk':
+    ensure => present
+  }
+}
