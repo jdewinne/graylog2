@@ -1,15 +1,15 @@
 # this must be the same as for your elasticsearch cluster
-cluster.name: graylog2
+cluster.name: <%= scope.lookupvar('graylog2::server::elasticsearch_cluster') %>
 
 # you could also leave this out, but makes it easier to identify the graylog2 client instance
-node.name: "graylog2-server"
+node.name: "<%= scope.lookupvar('graylog2::server::node_name') %>"
 
 # we don't want the graylog2 client to store any data, or be master node
 node.master: false
 node.data: false
 
 # you might need to bind to a certain IP address, do that here
-network.host: <%= ipaddress_eth1 %>
+network.host: <%= scope.lookupvar('graylog2::server::network_host') %>
 # use a different port if you run multiple elasticsearch nodes on one machine
 transport.tcp.port: 9350
 
